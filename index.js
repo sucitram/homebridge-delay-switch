@@ -24,13 +24,11 @@ DelaySwitch.prototype.getServices = function() {
 }
 
 DelaySwitch.prototype._setOn = function(on, callback) {
-  setTimeout(function() {
-     this.log("Setting switch to " + on);
-  }, 10000);
-  if (on) {
+ this.log("Setting switch to " + on);
+ if (on) {
     setTimeout(function() {
       this._service.setCharacteristic(Characteristic.On, false);
-    }.bind(this), 1000);
+    }.bind(this), 10000);
   }
   
   callback();
