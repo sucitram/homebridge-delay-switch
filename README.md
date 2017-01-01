@@ -35,3 +35,6 @@ Basically, all you need to do is:
 ## How to install
 
  ```sudo npm install -g homebridge-delay-switch```
+ 
+## Credits
+This plugin was forked from and inspired by homebridge-dummy by @nfarina
