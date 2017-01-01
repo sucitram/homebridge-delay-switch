@@ -13,6 +13,7 @@ module.exports = function(homebridge) {
 function DelaySwitch(log, config) {
   this.log = log;
   this.name = config.name;
+  this.delayTime = config.delay;
   
   this._service = new Service.Switch(this.name);
   this._service.getCharacteristic(Characteristic.On)
@@ -28,7 +29,7 @@ DelaySwitch.prototype._setOn = function(on, callback) {
  if (on) {
     setTimeout(function() {
       this._service.setCharacteristic(Characteristic.On, false);
-    }.bind(this), 10000);
+    }.bind(this), this.delayTime);
   }
   
   callback();

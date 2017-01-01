@@ -1,20 +1,37 @@
 
-# "Dummy Switches" Plugin
+# "Delay Switches" Plugin
 
-Example config.json:
+## Example config.json:
 
  ```
     "accessories": [
         {
-          "accessory": "DummySwitch",
-          "name": "My Switch 1"
+          "accessory": "DelaySwitch",
+          "name": "DelaySwitch",
+          "delay": 5000
         }   
     ]
 
 ```
 
-With this plugin, you can create any number of fake switches that will do nothing when turned on (and will automatically turn off right afterward, simulating a stateless switch). This can be very useful for advanced automation with HomeKit scenes.
+## Why do we need this plugin?
 
-For instance, the Philips Hue app will automatically create HomeKit scenes for you based on Hue Scenes you create. But what if you want to create a scene that contains both Philips Hue actions and other actions (like turning on the coffee maker with a WeMo outlet)? You are forced to either modify the Hue-created scene (which can be a HUGE list of actions if you have lots of lights) or build your own HomeKit lighting scenes.
+With this plugin, you can create any number of fake switches that will do nothing when turned on (and will automatically turn off after the delay time set in the config, simulating a stateless switch). This can be very useful for advanced automation with HomeKit scenes - when a delayed action is required.
 
-Instead, you can link scenes using these dummy switches. Let's say you have a Hue Scene called "Rise and Shine" that you want to activate in the morning. And you have also setup the system HomeKit scene "Good Morning" to turn on your coffee maker and disarm you security system. You can add a single dummy switch to your Good Morning scene, then create a Trigger based on the switching-on of the dummy switch that also activates Rise And Shine.
+For example, when using smart wall switch (to turn on) and RGB light bulb (to switch color) together on the same scene can cause no action on the bulb since the bulb might not even be on when the command has been sent from homebridge.
+
+I'm using RF wall switches and a MiLight RGBW bulbs with that switch. When coming home, I wish to turn on the switch and change the color of the bulb, using it on the same scene (or even another scene connected with dummy switch) causing the RGB bulb not to change cause the command is faster than the bulb actually turning on.
+therefore, a delay switch is needed.
+
+Also it can be use with any device that require a certain delay time from other devices (TV + RPi-Kodi  /  PC + SSH / etc...)
+
+## How it works
+
+Basically, all you need to do is:
+1. Set the desired delay time in the config file (in milisceonds).
+2. Use this switch in any scene or automation.
+3. Set an automation to trigger when this switch is turned off - "EVE" app is very reccomended to set this automation.
+
+## How to install
+
+ ```sudo npm install -g homebridge-delay-switch```
