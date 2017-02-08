@@ -4,7 +4,6 @@ module.exports = function(homebridge) {
  
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
-  Accessory = homebridge.hap.Accessory;
   homebridge.registerAccessory("homebridge-delay-switch", "DelaySwitch", DelaySwitch);
 }
 
@@ -16,6 +15,13 @@ function DelaySwitch(log, config) {
 }
 
 DelaySwitch.prototype.getServices = function() {
+ var informationService = new Service.AccessoryInformation();
+
+        informationService
+                .setCharacteristic(Characteristic.Manufacturer, "Delay Manufacturer")
+                .setCharacteristic(Characteristic.Model, "Delay Model")
+                .setCharacteristic(Characteristic.SerialNumber, "Delay Serial Number");
+
  this.service = new Service.Switch(this.name);
  
  this.service.getCharacteristic(Characteristic.On)
