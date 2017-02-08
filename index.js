@@ -18,9 +18,8 @@ function DelaySwitch(log, config) {
 DelaySwitch.prototype.getServices = function() {
  this.service = new Service.Switch(this.name);
  
- this.service.addCharacteristic(Characteristic.On);
-    this.service.getCharacteristic(Characteristic.On)
-        .on('set', this.setOn.bind(this));
+ this.service.getCharacteristic(Characteristic.On)
+     .on('set', this.setOn.bind(this));
  
   return [this._service];
 }
