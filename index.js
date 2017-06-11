@@ -26,7 +26,7 @@ DelaySwitch.prototype.getServices = function() {
 
 DelaySwitch.prototype._setOn = function(on, callback) {
  this.log("Setting switch to " + on);
- if (on) {
+ if (on == 1) {
     clearTimeout(this.Timer);
     this.Timer = setTimeout(function() {
       this._service.setCharacteristic(Characteristic.On, 0);
