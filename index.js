@@ -29,7 +29,7 @@ DelaySwitch.prototype._setOn = function(on, callback) {
  if (on) {
     clearTimeout(this.Timer);
     this.Timer = setTimeout(function() {
-      this._service.setCharacteristic(Characteristic.On, false);
+      this._service.setCharacteristic(Characteristic.On, 0);
     }.bind(this), this.delayTime);
   }
   else { 
