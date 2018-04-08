@@ -36,7 +36,7 @@ DelaySwitch.prototype.setOn = function(on, callback) {
  if (on) {
     clearTimeout(self.Timer);
     self.Timer = setTimeout(function() {
-      self.service.setCharacteristic(Characteristic.On, false);
+      self.service.getCharacteristic(Characteristic.On).updateValue(false);
     }, self.delayTime);
   } else clearTimeout(self.Timer);
   
