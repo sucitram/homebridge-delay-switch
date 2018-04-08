@@ -27,7 +27,7 @@ DelaySwitch.prototype.getServices = function() {
  this.service.getCharacteristic(Characteristic.On)
      .on('set', this.setOn.bind(this));
  
-  return [this._service];
+  return [this.service];
 }
 
 DelaySwitch.prototype.setOn = function(on, callback) {
