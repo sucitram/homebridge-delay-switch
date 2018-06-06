@@ -1,44 +1,83 @@
-var Service, Characteristic, Accessory;
 
-module.exports = function(homebridge) {
- 
-  Service = homebridge.hap.Service;
-  Characteristic = homebridge.hap.Characteristic;
-  homebridge.registerAccessory("homebridge-delay-switch", "DelaySwitch", DelaySwitch);
+
+var Service, Characteristic;
+
+module.exports = function (homebridge) {
+    Service = homebridge.hap.Service;
+    Characteristic = homebridge.hap.Characteristic;
+
+    homebridge.registerAccessory("homebridge-delay-switch", "DelaySwitch", delaySwitch);
 }
 
-function DelaySwitch(log, config) {
-  this.log = log;
-  this.name = config['name'];
-  this.delayTime = config['delay'];
-  this.Timer;
+
+function delaySwitch(log, config) {
+    this.log = log;
+    this.name = config['name'];
+    this.delayTime = config['delay'];
+    this.timer;
+    this.switchOn = false;
+    this.motionTriggered = false;
+
 }
 
-DelaySwitch.prototype.getServices = function() {
- var informationService = new Service.AccessoryInformation();
+delaySwitch.prototype.getServices = function () {
+    var informationService = new Service.AccessoryInformation();
 
-        informationService
-                .setCharacteristic(Characteristic.Manufacturer, "Delay Manufacturer")
-                .setCharacteristic(Characteristic.Model, "Delay Model")
-                .setCharacteristic(Characteristic.SerialNumber, "Delay Serial Number");
+    informationService
+        .setCharacteristic(Characteristic.Manufacturer, "Delay Manufacturer")
+        .setCharacteristic(Characteristic.Model, "Delay Model")
+        .setCharacteristic(Characteristic.SerialNumber, "Delay Serial Number");
 
- this.service = new Service.Switch(this.name);
- 
- this.service.getCharacteristic(Characteristic.On)
-     .on('set', this.setOn.bind(this));
- 
-  return [this.service];
+
+    this.switchService = new Service.Switch(this.name);
+
+
+    this.switchService.getCharacteristic(Characteristic.On)
+        .on('get', this.getOn.bind(this))
+        .on('set', this.setOn.bind(this));
+
+    this.motionService = new Service.MotionSensor(this.name + ' Trigger');
+
+    this.motionService
+        .getCharacteristic(Characteristic.MotionDetected)
+        .on('get', this.getMotion.bind(this));
+
+    return [informationService, this.switchService, this.motionService];
+
 }
 
-DelaySwitch.prototype.setOn = function(on, callback) {
- this.log("Setting switch to " + on);
- var self = this;
- if (on) {
-    clearTimeout(self.Timer);
-    self.Timer = setTimeout(function() {
-      self.service.getCharacteristic(Characteristic.On).updateValue(false);
-    }, self.delayTime);
-  } else clearTimeout(self.Timer);
-  
-  callback();
+delaySwitch.prototype.setOn = function (on, callback) {
+
+    if (!on) {
+        this.log('Stopping the Timer.');
+    
+        this.switchOn = false;
+        clearTimeout(this.timer);
+        this.motionTriggered = false;
+        this.motionService.getCharacteristic(Characteristic.MotionDetected).updateValue(false);
+
+        
+      } else {
+        this.log('Starting the Timer.');
+        this.switchOn = true;
+    
+        clearTimeout(this.timer);
+        this.timer = setTimeout(function() {
+          this.log('Time is Up! Triggering Motion Sensor');
+          this.motionTriggered = true;
+          this.motionService.getCharacteristic(Characteristic.MotionDetected).updateValue(true);
+          this.switchService.getCharacteristic(Characteristic.On).updateValue(false);
+          this.switchOn = false;
+          setTimeout(function() {
+            this.motionService.getCharacteristic(Characteristic.MotionDetected).updateValue(false);
+            this.motionTriggered = false;
+          }.bind(this), 3000);
+        }.bind(this), this.delay);
+      }
+    
+      callback();
+}
+
+delaySwitch.prototype.getMotion = function(callback) {
+    callback(null, this.motionTriggered);
 }

@@ -1,5 +1,13 @@
 
-# "Delay Switches" Plugin
+# Homebridge-Delay-Switch
+
+With this plugin, you can create any number of fake switches that will start a timer when turned ON, when the delay time is reached the switch will automatically turn OFF and trigger a dedicated motion sensor for 3 seconds. This can be very useful for advanced automation with HomeKit scenes - when a delayed actions are required.
+
+## How to install
+
+ * ```sudo npm install -g homebridge-delay-switch```
+* Create an accessory in your config.json file
+* Restart homebridge
 
 ## Example config.json:
 
@@ -14,30 +22,35 @@
 
 ```
 
-## Why do we need this plugin?
 
-With this plugin, you can create any number of fake switches that will do nothing when turned on (and will automatically turn off after the delay time set in the config, simulating a stateless switch). This can be very useful for advanced automation with HomeKit scenes - when a delayed action is required.
-
-For example, when using smart wall switch (to turn on) and RGB light bulb (to switch color) together on the same scene can cause no action on the bulb since the bulb might not even be on when the command has been sent from homebridge.
-
-I'm using RF wall switches and a MiLight RGBW bulbs with that switch. When coming home, I wish to turn on the switch and change the color of the bulb, using it on the same scene (or even another scene connected with dummy switch) causing the RGB bulb not to change cause the command is faster than the bulb actually turning on.
-therefore, a delay switch is needed.
-
-Also it can be use with any device that require a certain delay time from other devices (TV + RPi-Kodi  /  PC + SSH / etc...)
 
 ## How it works
 
 Basically, all you need to do is:
 1. Set the desired delay time in the config file (in milliseconds).
-2. Use this switch in any scene or automation.
-3. Set an automation to trigger when this switch is turned off - "EVE" app is very recommended to set this automation.
+2. The plugin will create one switch and one motion sensor for this plugin.
+3. Use this switch in any scene or automation.
+4. Set an automation to trigger when this switch is turned ON or the motion sensor is triggers - "EVE" app is very recommended to set this automation.
 
-## How to install
 
- ```sudo npm install -g homebridge-delay-switch```
- 
-## Credits
-This plugin was forked from and inspired by homebridge-dummy by @nfarina
+
+## Why do we need this plugin?
+
+
+For example, when using smart wall switch (to turn ON) and RGB light bulb (to switch color) together on the same scene can cause no action on the bulb since the bulb might not even be ON when the command has been sent from homebridge.
+For that, we need to set an automation to change the bulb color a few seconds after the wall switch ON command.
+
+Another great example is using this plugin to turn ON/OFF lights based on a motion/door sensor. This can be achieved by setting an automation to turn ON a light when the delay swich is turned ON and turn OFF the light when the dedicated delay motion sensor is triggers.
+
+Also it can be use with any device that require a certain delay time from other devices (TV + RPi-Kodi  /  PC + SSH / etc...)
+
+
+## Good to know
+
+* **When manualy turning OFF the switch, the timer will stop and the motion sensor will NOT be triggered.**
+
+* **When the delay switch is getting ON command while it's already ON, the timer will restart and the motion sensor trigger will be delayed.**
+
 
 _________________________________________
 #### Creating and maintaining Homebridge plugins consume a lot of time and effort, if you would like to share your appreciation, feel free to "Star" or donate. 
