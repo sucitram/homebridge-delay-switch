@@ -46,6 +46,7 @@ delaySwitch.prototype.getServices = function () {
 
 }
 
+
 delaySwitch.prototype.setOn = function (on, callback) {
 
     if (!on) {
@@ -76,6 +77,12 @@ delaySwitch.prototype.setOn = function (on, callback) {
       }
     
       callback();
+}
+
+
+
+delaySwitch.prototype.getOn = function (callback) {
+    callback(null, this.switchOn);
 }
 
 delaySwitch.prototype.getMotion = function(callback) {
