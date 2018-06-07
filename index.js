@@ -13,7 +13,7 @@ module.exports = function (homebridge) {
 function delaySwitch(log, config) {
     this.log = log;
     this.name = config['name'];
-    this.delayTime = config['delay'];
+    this.delay = config['delay'];
     this.timer;
     this.switchOn = false;
     this.motionTriggered = false;
