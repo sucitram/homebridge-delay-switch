@@ -16,13 +16,18 @@ With this plugin, you can create any number of fake switches that will start a t
         {
           "accessory": "DelaySwitch",
           "name": "DelaySwitch",
+          "disableSensor": false,
           "delay": 5000
         }   
     ]
 
 ```
 
+## Why Adding Motion Sensor?
 
+A Motion sensor is created for each accessory in order to be able to cancel the timer and the attached automations.
+How it works? you can set the automation to be triggered from the motion sensor instead of the switch OFF command and therefore you can turn OFF the switch and prevent the motion sensor from being triggered or any attached automations.
+If you have no use of the sensor you can remove it by adding `"disableSensor": true` to your config.
 
 ## How it works
 
