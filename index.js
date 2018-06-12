@@ -14,6 +14,7 @@ function delaySwitch(log, config) {
     this.log = log;
     this.name = config['name'];
     this.delay = config['delay'];
+    this.disableSensor = config['disableSensor'] || false;
     this.timer;
     this.switchOn = false;
     this.motionTriggered = false;
@@ -35,14 +36,19 @@ delaySwitch.prototype.getServices = function () {
     this.switchService.getCharacteristic(Characteristic.On)
         .on('get', this.getOn.bind(this))
         .on('set', this.setOn.bind(this));
+    
+    var services = [informationService, this.switchService]
+    
+    if (!this.disableSensor){
+        this.motionService = new Service.MotionSensor(this.name + ' Trigger');
 
-    this.motionService = new Service.MotionSensor(this.name + ' Trigger');
+        this.motionService
+            .getCharacteristic(Characteristic.MotionDetected)
+            .on('get', this.getMotion.bind(this));
+        services.push(this.motionService)
+    }
 
-    this.motionService
-        .getCharacteristic(Characteristic.MotionDetected)
-        .on('get', this.getMotion.bind(this));
-
-    return [informationService, this.switchService, this.motionService];
+    return services;
 
 }
 
@@ -55,7 +61,7 @@ delaySwitch.prototype.setOn = function (on, callback) {
         this.switchOn = false;
         clearTimeout(this.timer);
         this.motionTriggered = false;
-        this.motionService.getCharacteristic(Characteristic.MotionDetected).updateValue(false);
+        if (!this.disableSensor) this.motionService.getCharacteristic(Characteristic.MotionDetected).updateValue(false);
 
         
       } else {
@@ -64,15 +70,20 @@ delaySwitch.prototype.setOn = function (on, callback) {
     
         clearTimeout(this.timer);
         this.timer = setTimeout(function() {
-          this.log('Time is Up! Triggering Motion Sensor');
-          this.motionTriggered = true;
-          this.motionService.getCharacteristic(Characteristic.MotionDetected).updateValue(true);
+          this.log('Time is Up!');
           this.switchService.getCharacteristic(Characteristic.On).updateValue(false);
           this.switchOn = false;
-          setTimeout(function() {
-            this.motionService.getCharacteristic(Characteristic.MotionDetected).updateValue(false);
-            this.motionTriggered = false;
-          }.bind(this), 3000);
+            
+          if (!this.disableSensor) {
+              this.motionTriggered = true;
+              this.motionService.getCharacteristic(Characteristic.MotionDetected).updateValue(true);
+              this.log('Triggering Motion Sensor');
+              setTimeout(function() {
+                  this.motionService.getCharacteristic(Characteristic.MotionDetected).updateValue(false);
+                  this.motionTriggered = false;
+              }.bind(this), 3000);
+          }
+          
         }.bind(this), this.delay);
       }
     
