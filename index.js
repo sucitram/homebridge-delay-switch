@@ -5,12 +5,15 @@ var Service, Characteristic;
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
+    let UUIDGen = api.hap.uuid;
 
     homebridge.registerAccessory("homebridge-delay-switch", "DelaySwitch", delaySwitch);
 }
 
 
-function delaySwitch(log, config) {
+function delaySwitch(log, config, api) {
+    let UUIDGen = api.hap.uuid;
+
     this.log = log;
     this.name = config['name'];
     this.delay = config['delay'];
@@ -18,7 +21,7 @@ function delaySwitch(log, config) {
     this.timer;
     this.switchOn = false;
     this.motionTriggered = false;
-
+    this.uuid = UUIDGen.generate(this.name)
 }
 
 delaySwitch.prototype.getServices = function () {
@@ -27,7 +30,7 @@ delaySwitch.prototype.getServices = function () {
     informationService
         .setCharacteristic(Characteristic.Manufacturer, "Delay Manufacturer")
         .setCharacteristic(Characteristic.Model, "Delay Model")
-        .setCharacteristic(Characteristic.SerialNumber, "Delay Serial Number");
+        .setCharacteristic(Characteristic.SerialNumber, this.uuid);
 
 
     this.switchService = new Service.Switch(this.name);
