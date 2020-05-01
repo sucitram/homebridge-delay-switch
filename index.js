@@ -5,8 +5,6 @@ var Service, Characteristic;
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
-    let UUIDGen = api.hap.uuid;
-
     homebridge.registerAccessory("homebridge-delay-switch", "DelaySwitch", delaySwitch);
 }
 
