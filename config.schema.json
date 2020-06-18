@@ -1,0 +1,38 @@
+{
+    "pluginAlias": "DelaySwitch",
+    "pluginType": "accessory",
+    "singular": true,
+    "headerDisplay": "Homebridge plugin for creating delay/timer switches and sensors for delayed actions/automations",
+    "footerDisplay": "Created by @nitaybz",
+    "schema": {
+        "type": "object",
+        "properties": {
+            "accessory": {
+                "title": "Accessory",
+                "type": "string",
+                "const": "DelaySwitch",
+                "readOnly": true
+            },
+            "name": {
+                "title": "Accessory Name",
+                "description": "Name for the accessory",
+                "type": "string",
+                "required": true
+            },
+            "disableSensor": {
+                "title": "Disable Extra Motion Sensor",
+                "description": "Enable if you have no use of the sensor and you're interested to use the switch only",
+                "type": "boolean",
+                "default": false,
+                "required": false
+            },
+            "delay": {
+                "title": "Delay Time in Milliseconds",
+                "description": "Amount of time in milliseconds to wait since the switch is turned ON until the switch will be turned OFF and the sensor will trigger",
+                "type": "integer",
+                "default": 5000,
+                "required": true
+            }
+        }
+    }
+  }
