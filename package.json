@@ -1,6 +1,6 @@
 {
   "name": "homebridge-delay-switch",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "Delay switches for Homebridge: https://github.com/nfarina/homebridge",
   "license": "MIT",
   "keywords": [
