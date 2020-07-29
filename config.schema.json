@@ -19,6 +19,13 @@
                 "type": "string",
                 "required": true
             },
+            "delay": {
+                "title": "Delay Time in Milliseconds",
+                "description": "Amount of time in milliseconds to wait since the switch is turned ON until the switch will be turned OFF and the sensor will trigger",
+                "type": "integer",
+                "default": 5000,
+                "required": true
+            },
             "disableSensor": {
                 "title": "Disable Extra Motion Sensor",
                 "description": "Enable if you have no use of the sensor and you're interested to use the switch only",
@@ -26,12 +33,12 @@
                 "default": false,
                 "required": false
             },
-            "delay": {
-                "title": "Delay Time in Milliseconds",
-                "description": "Amount of time in milliseconds to wait since the switch is turned ON until the switch will be turned OFF and the sensor will trigger",
-                "type": "integer",
-                "default": 5000,
-                "required": true
+            "startOnReboot": {
+                "title": "Turn ON when HomeBridge Restarts",
+                "description": "When Enabled, the switch will be turned ON and start the timer when HomeBridge server restarts",
+                "type": "boolean",
+                "default": false,
+                "required": false
             }
         }
     }
