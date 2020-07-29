@@ -16,6 +16,7 @@ function delaySwitch(log, config, api) {
     this.name = config['name'];
     this.delay = config['delay'];
     this.disableSensor = config['disableSensor'] || false;
+    this.startOnReboot = config['startOnReboot'] || false;
     this.timer;
     this.switchOn = false;
     this.motionTriggered = false;
@@ -37,6 +38,9 @@ delaySwitch.prototype.getServices = function () {
     this.switchService.getCharacteristic(Characteristic.On)
         .on('get', this.getOn.bind(this))
         .on('set', this.setOn.bind(this));
+
+    if (this.startOnReboot)
+        this.switchService.setCharacteristic(Characteristic.On, true)
     
     var services = [informationService, this.switchService]
     
