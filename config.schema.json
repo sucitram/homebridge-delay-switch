@@ -7,12 +7,6 @@
     "schema": {
         "type": "object",
         "properties": {
-            "accessory": {
-                "title": "Accessory",
-                "type": "string",
-                "const": "DelaySwitch",
-                "readOnly": true
-            },
             "name": {
                 "title": "Accessory Name",
                 "description": "Name for the accessory",
