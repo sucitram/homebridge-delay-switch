@@ -1,7 +1,7 @@
 {
     "pluginAlias": "DelaySwitch",
     "pluginType": "accessory",
-    "singular": true,
+    "singular": false,
     "headerDisplay": "Homebridge plugin for creating delay/timer switches and sensors for delayed actions/automations",
     "footerDisplay": "Created by @nitaybz",
     "schema": {
