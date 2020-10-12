@@ -1,4 +1,4 @@
-<img src="branding/hoobs_homebridge_delayswitch.svg" width="700px">
+<img src="branding/delayswitch_homebridge.png" width="500px">
 
 # Homebridge-Delay-Switch
 
@@ -11,9 +11,9 @@ With this plugin, you can create any number of fake switches that will start a t
 
 ## Installations
 
-This plugin is [HOOBS](https://hoobs.org/?ref=10876) certified and can be easily installed and configured through their UI.
+This plugin is Homebridge verified and HOOBS certified and can be easily installed and configured through their UI.
 
-If you don't use HOOBS (or Homebridge UI), keep reading:
+If you don't use Homebridge UI or HOOBS, keep reading:
 
  * ```sudo npm install -g homebridge-delay-switch```
 * Create an accessory in your config.json file
