@@ -61,7 +61,7 @@ delaySwitch.prototype.getServices = function () {
 delaySwitch.prototype.setOn = function (on, callback) {
 
     if (!on) {
-        this.log('Stopping the Timer.');
+        this.log('Stopping the Timer');
     
         this.switchOn = false;
         clearTimeout(this.timer);
@@ -70,7 +70,7 @@ delaySwitch.prototype.setOn = function (on, callback) {
 
         
       } else {
-        this.log('Starting the Timer.');
+        this.log('Starting the Timer');
         this.switchOn = true;
     
         clearTimeout(this.timer);
