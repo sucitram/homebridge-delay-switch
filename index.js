@@ -15,12 +15,25 @@ function delaySwitch(log, config, api) {
     this.log = log;
     this.name = config['name'];
     this.delay = config['delay'];
-    this.disableSensor = config['disableSensor'] || false;
-    this.startOnReboot = config['startOnReboot'] || false;
+    this.sensorType = config['sensorType'];
+    this.flipSensor = config['flipSensorState'];
+    this.disableSensor = config['disableSensor'] || !config['sensorType'];
+    this.startOnReboot = config['startOnReboot'];
     this.timer;
     this.switchOn = false;
-    this.motionTriggered = false;
+    this.sensorTriggered = 0;
     this.uuid = UUIDGen.generate(this.name)
+
+    this.getSensorState = () => {
+        state = this.sensorTriggered
+        if (this.flipSensor && sensorType === 'motion')
+            return !state
+        if (this.sensorType === 'motion')
+            return !!state
+        if (this.flipSensor)
+            return state^1
+        return state
+    }
 }
 
 delaySwitch.prototype.getServices = function () {
@@ -45,12 +58,28 @@ delaySwitch.prototype.getServices = function () {
     var services = [informationService, this.switchService]
     
     if (!this.disableSensor){
-        this.motionService = new Service.MotionSensor(this.name + ' Trigger');
+        switch (this.sensorType) {
+            case 'contact':
+                this.sensorService = new Service.ContactSensor(this.name + ' Trigger');
+                this.sensorCharacteristic = Characteristic.ContactSensorState
+                break;
+            case 'occupancy':
+                this.sensorService = new Service.OccupancySensor(this.name + ' Trigger');
+                this.sensorCharacteristic = Characteristic.OccupancyDetected
+                break;
+            default:
+                this.sensorService = new Service.MotionSensor(this.name + ' Trigger');
+                this.sensorCharacteristic = Characteristic.MotionDetected
+                break;
+        }
 
-        this.motionService
-            .getCharacteristic(Characteristic.MotionDetected)
-            .on('get', this.getMotion.bind(this));
-        services.push(this.motionService)
+        this.sensorService
+            .getCharacteristic(this.sensorCharacteristic)
+            .on('get', (callback) => {
+                callback(null, this.getSensorState())
+            });
+
+        services.push(this.sensorService)
     }
 
     return services;
@@ -65,8 +94,8 @@ delaySwitch.prototype.setOn = function (on, callback) {
     
         this.switchOn = false;
         clearTimeout(this.timer);
-        this.motionTriggered = false;
-        if (!this.disableSensor) this.motionService.getCharacteristic(Characteristic.MotionDetected).updateValue(false);
+        this.sensorTriggered = 0;
+        if (!this.disableSensor) this.sensorService.getCharacteristic(this.sensorCharacteristic).updateValue(this.getSensorState());
 
         
       } else {
@@ -80,12 +109,12 @@ delaySwitch.prototype.setOn = function (on, callback) {
           this.switchOn = false;
             
           if (!this.disableSensor) {
-              this.motionTriggered = true;
-              this.motionService.getCharacteristic(Characteristic.MotionDetected).updateValue(true);
-              this.log('Triggering Motion Sensor');
+              this.sensorTriggered = 1;
+              this.sensorService.getCharacteristic(this.sensorCharacteristic).updateValue(this.getSensorState());
+              this.log('Triggering Sensor');
               setTimeout(function() {
-                  this.motionService.getCharacteristic(Characteristic.MotionDetected).updateValue(false);
-                  this.motionTriggered = false;
+                this.sensorTriggered = 0;
+                this.sensorService.getCharacteristic(this.sensorCharacteristic).updateValue(this.getSensorState());
               }.bind(this), 3000);
           }
           
@@ -99,8 +128,4 @@ delaySwitch.prototype.setOn = function (on, callback) {
 
 delaySwitch.prototype.getOn = function (callback) {
     callback(null, this.switchOn);
-}
-
-delaySwitch.prototype.getMotion = function(callback) {
-    callback(null, this.motionTriggered);
 }

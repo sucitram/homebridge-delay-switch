@@ -20,9 +20,21 @@
                 "default": 5000,
                 "required": true
             },
-            "disableSensor": {
-                "title": "Disable Extra Motion Sensor",
-                "description": "Enable if you have no use of the sensor and you're interested to use the switch only",
+            "sensorType": {
+                "title": "Trigger Sensor Type",
+                "description": "The sensor type that will trigger when the time has ended (\"None\" for no sensor, \"Motion Sensor\" is default)",
+                "type": "string",
+                "default": "motion",
+                "required": false,
+                "oneOf": [
+                  { "title": "Motion Sensor", "enum": ["motion"] },
+                  { "title": "Contact Sensor", "enum": ["contact"] },
+                  { "title": "Occupancy Sensor", "enum": ["occupancy"] }
+                ]
+            },
+            "flipSensorState": {
+                "title": "Flip Sensor State",
+                "description": "Enable to flip the trigger sensor state (close/open, detected/not detected)",
                 "type": "boolean",
                 "default": false,
                 "required": false
