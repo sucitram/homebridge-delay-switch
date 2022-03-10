@@ -40,7 +40,7 @@
                 "required": false
             },
             "startOnReboot": {
-                "title": "Turn ON when HomeBridge Restarts",
+                "title": "Turn ON when Homebridge Restarts",
                 "description": "When Enabled, the switch will be turned ON and start the timer when HomeBridge server restarts",
                 "type": "boolean",
                 "default": false,

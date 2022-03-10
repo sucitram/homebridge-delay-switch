@@ -42,7 +42,7 @@ If you don't use Homebridge UI or HOOBS, keep reading:
 | `delay`                 |  Delay/Timer in milliseconds         |     ✓    |     -    |  Integer |
 | `sensorType`            |  The sensor type that will trigger when the time has ended (`null` for no sensor)         |         | `"motion"` |  Integer |
 | `flipSensorState`       | Flips the trigger sensor state (close/open, detected/not detected)   |          |   `false`  |  Boolean |
-| `startOnReboot`         |  When set to `true`, the switch will be turned ON and start the timer when HomeBridge restarts        |       |  `false` |  Boolean  |
+| `startOnReboot`         |  When set to `true`, the switch will be turned ON and start the timer when Homebridge restarts        |       |  `false` |  Boolean  |
 
 ## Why do we need this Plugin?
 
