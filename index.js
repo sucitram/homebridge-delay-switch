@@ -92,7 +92,7 @@ delaySwitch.prototype.getServices = function () {
 delaySwitch.prototype.setOn = function (on, callback) {
 
     if (!on) {
-        this.log('Stopping the Timer');
+        this.log.debug('Stopping the Timer');
     
         this.switchOn = false;
         clearTimeout(this.timer);
@@ -101,19 +101,19 @@ delaySwitch.prototype.setOn = function (on, callback) {
 
         
       } else {
-        this.log('Starting the Timer');
+        this.log.debug('Starting the Timer');
         this.switchOn = true;
     
         clearTimeout(this.timer);
         this.timer = setTimeout(function() {
-          this.log('Time is Up!');
+          this.log.debug('Time is Up!');
           this.switchService.getCharacteristic(Characteristic.On).updateValue(false);
           this.switchOn = false;
             
           if (!this.disableSensor) {
               this.sensorTriggered = 1;
               this.sensorService.getCharacteristic(this.sensorCharacteristic).updateValue(this.getSensorState());
-              this.log('Triggering Sensor');
+              this.log.debug('Triggering Sensor');
               setTimeout(function() {
                 this.sensorTriggered = 0;
                 this.sensorService.getCharacteristic(this.sensorCharacteristic).updateValue(this.getSensorState());
