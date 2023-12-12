@@ -28,7 +28,7 @@ function delaySwitch(log, config, api) {
 
     this.getSensorState = () => {
         state = this.sensorTriggered
-        if (this.flipSensor && sensorType === 'motion')
+        if (this.flipSensor && this.sensorType === 'motion')
             return !state
         if (this.sensorType === 'motion')
             return !!state
