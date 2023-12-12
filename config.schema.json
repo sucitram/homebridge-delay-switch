@@ -45,6 +45,13 @@
                 "type": "boolean",
                 "default": false,
                 "required": false
+            },
+            "debug": {
+              "title": "Enable Debug Logs",
+              "description": "When checked, the plugin will produce extra logs for debugging purposes",
+              "type": "boolean",
+              "default": false,
+              "required": false
             }
         }
     }
