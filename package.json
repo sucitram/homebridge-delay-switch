@@ -33,5 +33,13 @@
       "type": "kofi",
       "url": "https://ko-fi.com/nitaybz"
     }
-  ]
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": ""
+  },
+  "devDependencies": {
+    "eslint": "^8.55.0"
+  }
 }
