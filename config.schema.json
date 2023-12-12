@@ -29,7 +29,8 @@
                 "oneOf": [
                   { "title": "Motion Sensor", "enum": ["motion"] },
                   { "title": "Contact Sensor", "enum": ["contact"] },
-                  { "title": "Occupancy Sensor", "enum": ["occupancy"] }
+                  { "title": "Occupancy Sensor", "enum": ["occupancy"] },
+                  { "title": "Leak Sensor", "enum": ["leak"] }
                 ]
             },
             "flipSensorState": {
