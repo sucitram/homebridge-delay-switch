@@ -14,14 +14,15 @@ function delaySwitch(log, config, api) {
 
     this.log = log;
     this.name = config['name'];
-    this.delay = config['delay'];
+    this.delay = config['delay'] || 0;
+    this.delayUnit = config['delay'] || "miliseconds";
     this.debug = config.debug || false
     this.sensorType = config['sensorType'];
     if (typeof this.sensorType === 'undefined')
         this.sensorType = 'motion'
     this.flipSensor = config['flipSensorState'];
     this.disableSensor = config['disableSensor'] || !config['sensorType'];
-    this.startOnReboot = config['startOnReboot'];
+    this.startOnReboot = config['startOnReboot'] || false;
     this.timer;
     this.switchOn = false;
     this.sensorTriggered = 0;
