@@ -27,11 +27,11 @@ If you don't use Homebridge UI or HOOBS, keep reading:
           "accessory": "DelaySwitch",
           "name": "DelaySwitch",
           "type": "switch",
+          "startOnReboot": false,
           "delay": 5,
-          "delayUnit": "seconds",
+          "delayUnit": "miliseconds",
           "sensorType": "motion",
-          "flipSensorState": false,
-          "startOnReboot": false
+          "flipSensorState": false
         }   
     ]
 
