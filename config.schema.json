@@ -14,11 +14,25 @@
                 "required": true
             },
             "delay": {
-                "title": "Delay Time in Milliseconds",
-                "description": "Amount of time in milliseconds to wait since the switch is turned ON until the switch will be turned OFF and the sensor will trigger",
+                "title": "Delay Time",
+                "description": "Delay to wait until the switch will be turned OFF. Each start of the switch will start the timer from scratch. 0 - disabled",
                 "type": "integer",
                 "default": 5000,
                 "required": true
+            },
+            "delayUnit": {
+            "title": "Delay unit",
+            "description": "Delay unit: miliseconds, seconds, minutes, hour, days.",
+            "type": "string",
+            "default": "motion",
+            "required": true,
+            "oneOf": [
+                { "title": "miliseconds", "enum": ["miliseconds"] },
+                { "title": "seconds", "enum": ["seconds"] },
+                { "title": "minutes", "enum": ["minutes"] },
+                { "title": "hours", "enum": ["hours"] },
+                { "title": "days", "enum": ["days"] }
+            ]
             },
             "sensorType": {
                 "title": "Trigger Sensor Type",
@@ -35,14 +49,14 @@
             },
             "flipSensorState": {
                 "title": "Flip Sensor State",
-                "description": "Enable to flip the trigger sensor state (close/open, detected/not detected)",
+                "description": "Enable to flip the trigger sensor state (close/open, detected/not detected). When the option is enabled, the timer starts after turning off the switch.",
                 "type": "boolean",
                 "default": false,
                 "required": false
             },
             "startOnReboot": {
                 "title": "Turn ON when Homebridge Restarts",
-                "description": "When Enabled, the switch will be turned ON and start the timer when HomeBridge server restarts",
+                "description": "When Enabled, the switch will be turned ON when HomeBridge server restarts.",
                 "type": "boolean",
                 "default": false,
                 "required": false
