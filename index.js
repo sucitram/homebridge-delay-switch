@@ -15,7 +15,8 @@ function delaySwitch(log, config, api) {
     this.log = log;
     this.name = config['name'];
     this.delay = config['delay'] || 0;
-    this.delayUnit = config['delay'] || "miliseconds";
+    this.delayUnit = config['delayUnit'] || "miliseconds";
+    this.newDelay = config['delay'] || 0;
     this.debug = config.debug || false
     this.sensorType = config['sensorType'];
     if (typeof this.sensorType === 'undefined')
@@ -57,7 +58,7 @@ delaySwitch.prototype.getServices = function () {
 
     informationService
         .setCharacteristic(Characteristic.Manufacturer, "Delay Switch")
-        .setCharacteristic(Characteristic.Model, `Delay-${this.delay}ms`)
+        .setCharacteristic(Characteristic.Model, `Delay-${this.delay}-${this.delayUnit}`)
         .setCharacteristic(Characteristic.SerialNumber, this.uuid);
 
 
@@ -122,6 +123,28 @@ delaySwitch.prototype.setOn = function (on, callback) {
         this.switchOn = true;
         clearTimeout(this.timer);
         if (this.delay > 0) {
+
+            switch (this.delayUnit) {
+                case 'miliseconds':
+                    this.newDelay = this.delay;
+                    break;
+                case 'seconds':
+                    this.newDelay = this.delay * 1000;
+                    break;
+                case 'minutes':
+                    this.newDelay = this.delay * 60 * 1000;
+                    break;
+                case 'hours':
+                    this.newDelay = this.delay * 60 * 60 * 1000;
+                    break;
+                case 'days':
+                    this.newDelay = this.delay * 24 * 60 * 60 * 1000 ;
+                    break;
+                default:
+                    this.newDelay = this.delay;
+                    break;
+            }
+    
             this.log.easyDebug('Starting the Timer');
             this.timer = setTimeout(function() {
               this.log.easyDebug('Time is Up!');
@@ -138,7 +161,7 @@ delaySwitch.prototype.setOn = function (on, callback) {
                   }.bind(this), 3000);
               }
               
-            }.bind(this), this.delay);
+            }.bind(this), this.newDelay);
         }
       }
     
