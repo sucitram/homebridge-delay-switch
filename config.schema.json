@@ -81,13 +81,13 @@
         {
           "type": "flex",
           "flex-flow": "row wrap",
-          "items": ["name", "startOnReboot"]
+          "items": ["name"]
         }
       ]
     },
     {
       "type": "fieldset",
-      "title": "Timer",
+      "title": "Switch",
       "description": "",
       "expandable": true,
       "expanded": false,
@@ -96,6 +96,11 @@
           "type": "flex",
           "flex-flow": "row wrap",
           "items": ["delay", "delayUnit"]
+        },
+        {
+          "type": "flex",
+          "flex-flow": "row wrap",
+          "items": ["startOnReboot"]
         }
       ]
     },
