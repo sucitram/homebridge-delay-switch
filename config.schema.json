@@ -15,7 +15,7 @@
             },
             "delay": {
                 "title": "Delay Time",
-                "description": "Delay to wait until the switch will be turned OFF. Each start of the switch will start the timer from scratch. 0 - disabled",
+                "description": "Delay to wait until the switch will be turned OFF. Each start of the switch will start the timer from scratch. 0 - timer disabled.",
                 "type": "integer",
                 "default": 5000,
                 "required": true
@@ -24,7 +24,7 @@
             "title": "Delay unit",
             "description": "Delay unit: miliseconds, seconds, minutes, hour, days.",
             "type": "string",
-            "default": "motion",
+            "default": "miliseconds",
             "required": true,
             "oneOf": [
                 { "title": "miliseconds", "enum": ["miliseconds"] },
