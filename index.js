@@ -118,26 +118,27 @@ delaySwitch.prototype.setOn = function (on, callback) {
 
         
       } else {
-        this.log.easyDebug('Starting the Timer');
         this.switchOn = true;
-    
         clearTimeout(this.timer);
-        this.timer = setTimeout(function() {
-          this.log.easyDebug('Time is Up!');
-          this.switchService.getCharacteristic(Characteristic.On).updateValue(false);
-          this.switchOn = false;
-            
-          if (!this.disableSensor) {
-              this.sensorTriggered = 1;
-              this.sensorService.getCharacteristic(this.sensorCharacteristic).updateValue(this.getSensorState());
-              this.log.easyDebug('Triggering Sensor');
-              setTimeout(function() {
-                this.sensorTriggered = 0;
-                this.sensorService.getCharacteristic(this.sensorCharacteristic).updateValue(this.getSensorState());
-              }.bind(this), 3000);
-          }
-          
-        }.bind(this), this.delay);
+        if (this.delay > 0) {
+            this.log.easyDebug('Starting the Timer');
+            this.timer = setTimeout(function() {
+              this.log.easyDebug('Time is Up!');
+              this.switchService.getCharacteristic(Characteristic.On).updateValue(false);
+              this.switchOn = false;
+                
+              if (!this.disableSensor) {
+                  this.sensorTriggered = 1;
+                  this.sensorService.getCharacteristic(this.sensorCharacteristic).updateValue(this.getSensorState());
+                  this.log.easyDebug('Triggering Sensor');
+                  setTimeout(function() {
+                    this.sensorTriggered = 0;
+                    this.sensorService.getCharacteristic(this.sensorCharacteristic).updateValue(this.getSensorState());
+                  }.bind(this), 3000);
+              }
+              
+            }.bind(this), this.delay);
+        }
       }
     
       callback();
