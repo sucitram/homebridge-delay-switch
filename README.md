@@ -26,7 +26,9 @@ If you don't use Homebridge UI or HOOBS, keep reading:
         {
           "accessory": "DelaySwitch",
           "name": "DelaySwitch",
-          "delay": 5000,
+          "type": "switch",
+          "delay": 5,
+          "delayUnit": "seconds",
           "sensorType": "motion",
           "flipSensorState": false,
           "startOnReboot": false
@@ -39,10 +41,13 @@ If you don't use Homebridge UI or HOOBS, keep reading:
 | -------------------------------- | --------------------------- |:--------:|:--------:|:--------:|
 | `accessory`             | always `"DelaySwitch"`               |     ✓    |     -    |  String  |
 | `name`                  | Name for your accessory              |     ✓    |     -    |  String  |
-| `delay`                 |  Delay/Timer in milliseconds         |     ✓    |     -    |  Integer |
-| `sensorType`            |  The sensor type that will trigger when the time has ended (`null` for no sensor)         |         | `"motion"` |  Integer |
-| `flipSensorState`       | Flips the trigger sensor state (close/open, detected/not detected)   |          |   `false`  |  Boolean |
+| `type`                  | Switch / Dimmer (lightbulb)          |     ✓    |  "switch"    |  String  |
 | `startOnReboot`         |  When set to `true`, the switch will be turned ON and start the timer when Homebridge restarts        |       |  `false` |  Boolean  |
+| `delay`                 |  Delay/Timer time. 0 - timer disabled |     ✓    |     0    |  Integer |
+| `delayUnit`             |  Delay unit: miliseconds / seconds / minutes / hours / days |     ✓    |     "miliseconds"    |  String |
+| `sensorType`            |  The sensor type that will trigger when the time has ended (`null` for no sensor)         |         | `null` |  String |
+| `flipSensorState`       | Flips the trigger sensor state (close/open, detected/not detected)   |          |   `false`  |  Boolean |
+
 
 ## Why do we need this Plugin?
 
@@ -58,14 +63,14 @@ Also it can be use with any device that requires a certain delay time after othe
 
 Basically, all you need to do is:
 
-1. Set the desired `delay` time in the config file (in milliseconds).
-2. The plugin will create one switch and optional sensor (motion/contact/occupancy).
+1. Set the desired `delay` time in the config file. 0 - timer disabled.
+2. The plugin will create one switch (switch or dimmer) and optional sensor (motion/contact/occupancy).
 3. Use this switch in any scene or automation.
 4. Set an automation to trigger when this switch is turned OFF or the sensor is triggered, using the Home app or another app such as the Eve app.
 
 ## Why Add a Trigger Sensor?
 
-A sensor (motion/contact/occupancy) is created for each accessory in order to be able to cancel the timer and the attached automations.
+A sensor (motion/contact/occupancy/leak) is created for each accessory in order to be able to cancel the timer and the attached automations.
 How does it works? You can set the automation to be triggered from the attached "trigger" sensor instead of the switch OFF command and therefore you can turn OFF the switch and prevent the sensor from triggering or any attached automations from executing.
 If you have no use of the sensor you can remove it by setting `"sensorType": null` to your config.
 
