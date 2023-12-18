@@ -26,7 +26,7 @@
                 },
             "delay": {
                 "title": "Delay Time",
-                "description": "Delay to wait until the switch will be turned OFF. Each start of the switch will start the timer from scratch. 0 - timer disabled.",
+                "description": "Delay to wait until the switch will be turned OFF. Each activation of the switch will reactivate timer (time will start to run again). 0 - timer disabled.",
                 "type": "integer",
                 "default": 5000,
                 "required": true
@@ -47,9 +47,9 @@
             },
             "sensorType": {
                 "title": "Trigger Sensor Type",
-                "description": "The sensor type that will trigger when the time has ended (\"None\" for no sensor, \"Motion Sensor\" is default)",
+                "description": "Add an optional sensor that will be activated when the timer comes to an end.",
                 "type": "string",
-                "default": "motion",
+                "default": "",
                 "required": false,
                 "oneOf": [
                   { "title": "Motion Sensor", "enum": ["motion"] },
@@ -60,21 +60,21 @@
             },
             "flipSensorState": {
                 "title": "Flip Sensor State",
-                "description": "Enable to flip the trigger sensor state (close/open, detected/not detected). When the option is enabled, the timer starts after turning off the switch.",
+                "description": "Enable to flip the trigger sensor state (close/open, detected/not detected).",
                 "type": "boolean",
                 "default": false,
                 "required": false
             },
             "startOnReboot": {
                 "title": "Turn ON when Homebridge Restarts",
-                "description": "When Enabled, the switch will be turned ON when HomeBridge server restarts.",
+                "description": "Activate switch after Homebridge restart.",
                 "type": "boolean",
                 "default": false,
                 "required": false
             },
             "debug": {
               "title": "Enable Debug Logs",
-              "description": "When checked, the plugin will produce extra logs for debugging purposes",
+              "description": "Produce extra logs for debugging purposes",
               "type": "boolean",
               "default": false,
               "required": false
