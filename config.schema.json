@@ -49,7 +49,7 @@
             },
             "flipSensorState": {
                 "title": "Flip Sensor State",
-                "description": "Enable to flip the trigger sensor state (close/open, detected/not detected). When the option is enabled, the timer starts after turning off the switch.",
+                "description": "Enable to flip the trigger sensor state (close/open, detected/not detected).",
                 "type": "boolean",
                 "default": false,
                 "required": false
