@@ -1,5 +1,3 @@
-
-
 var Service, Characteristic;
 
 module.exports = function (homebridge) {
@@ -14,6 +12,7 @@ function delaySwitch(log, config, api) {
 
     this.log = log;
     this.name = config['name'];
+    this.type = config['type'] || "switch";
     this.delay = config['delay'] || 0;
     this.delayUnit = config['delayUnit'] || "miliseconds";
     this.newDelay = config['delay'] || 0;
@@ -61,13 +60,21 @@ delaySwitch.prototype.getServices = function () {
         .setCharacteristic(Characteristic.Model, `Delay-${this.delay}-${this.delayUnit}`)
         .setCharacteristic(Characteristic.SerialNumber, this.uuid);
 
-
-    this.switchService = new Service.Switch(this.name);
-
-
-    this.switchService.getCharacteristic(Characteristic.On)
-        .on('get', this.getOn.bind(this))
-        .on('set', this.setOn.bind(this));
+    if (this.type == 'switch') {
+        this.switchService = new Service.Switch(this.name);
+        this.switchService.getCharacteristic(Characteristic.On)
+            .on('get', this.getOn.bind(this))
+            .on('set', this.setOn.bind(this));
+    }
+    else {
+        this.switchService = new Service.Lightbulb(this.name);
+        this.switchService.getCharacteristic(Characteristic.On)
+            //.on('get', this.getOn.bind(this))
+            .on('set', this.setOn.bind(this));
+        this.switchService.getCharacteristic(Characteristic.Brightness)
+            //.on('get', this.getOn.bind(this))
+            .on('set', this.setOn.bind(this));
+    } 
 
     if (this.startOnReboot)
         this.switchService.setCharacteristic(Characteristic.On, true)
@@ -107,23 +114,18 @@ delaySwitch.prototype.getServices = function () {
 
 }
 
+delaySwitch.prototype.setOn = function (value, callback) {
 
-delaySwitch.prototype.setOn = function (on, callback) {
-
-    if (!on) {
+    if (value === false) {
         this.log.easyDebug('Stopping the Timer');
-    
         this.switchOn = false;
         clearTimeout(this.timer);
         this.sensorTriggered = 0;
         if (!this.disableSensor) this.sensorService.getCharacteristic(this.sensorCharacteristic).updateValue(this.getSensorState());
-
-        
-      } else {
+      } else if (value === true) {
         this.switchOn = true;
         clearTimeout(this.timer);
         if (this.delay > 0) {
-
             switch (this.delayUnit) {
                 case 'miliseconds':
                     this.newDelay = this.delay;
@@ -144,7 +146,6 @@ delaySwitch.prototype.setOn = function (on, callback) {
                     this.newDelay = this.delay;
                     break;
             }
-    
             this.log.easyDebug('Starting the Timer');
             this.timer = setTimeout(function() {
               this.log.easyDebug('Time is Up!');
@@ -164,11 +165,8 @@ delaySwitch.prototype.setOn = function (on, callback) {
             }.bind(this), this.newDelay);
         }
       }
-    
       callback();
 }
-
-
 
 delaySwitch.prototype.getOn = function (callback) {
     callback(null, this.switchOn);
