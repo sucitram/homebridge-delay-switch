@@ -93,21 +93,21 @@
           "type": "flex",
           "flex-flow": "row wrap",
           "items": ["name"]
+        },
+        {
+            "type": "flex",
+            "flex-flow": "row wrap",
+            "items": ["type", "startOnReboot"]
         }
       ]
     },
     {
       "type": "fieldset",
-      "title": "Switch",
+      "title": "Timer",
       "description": "",
       "expandable": true,
       "expanded": false,
       "items": [
-        {
-            "type": "flex",
-            "flex-flow": "row wrap",
-            "items": ["type", "startOnReboot"]
-        },
         {
           "type": "flex",
           "flex-flow": "row wrap",
@@ -117,7 +117,7 @@
     },
     {
       "type": "fieldset",
-      "title": "Sensor",
+      "title": "Additional Sensor",
       "description": "",
       "expandable": true,
       "expanded": false,
