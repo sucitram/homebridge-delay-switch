@@ -78,8 +78,6 @@ If you have no use of the sensor you can remove it by setting `"sensorType": nul
 
 * **When the delay switch receives ON command while it's already ON, the timer will restart and the sensor trigger will be delayed.**
 
-* **You can easily change the type from switch to light in Apple Home (then you will be able to set the value from 0 to 100**
-
 _________________________________________
 
 ## Support homebridge-delay-switch
