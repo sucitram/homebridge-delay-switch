@@ -12,7 +12,6 @@ function delaySwitch(log, config, api) {
 
     this.log = log;
     this.name = config['name'];
-    this.type = config['type'] || "switch";
     this.delay = config['delay'] || 0;
     this.delayUnit = config['delayUnit'] || "miliseconds";
     this.newDelay = config['delay'] || 0;
@@ -60,22 +59,12 @@ delaySwitch.prototype.getServices = function () {
         .setCharacteristic(Characteristic.Model, `Delay-${this.delay}-${this.delayUnit}`)
         .setCharacteristic(Characteristic.SerialNumber, this.uuid);
 
-    if (this.type == 'switch') {
-        this.switchService = new Service.Switch(this.name);
-        this.switchService.getCharacteristic(Characteristic.On)
-            .on('get', this.getOn.bind(this))
-            .on('set', this.setOn.bind(this));
-    }
-    else {
-        this.switchService = new Service.Lightbulb(this.name);
-        this.switchService.getCharacteristic(Characteristic.On)
-            //.on('get', this.getOn.bind(this))
-            .on('set', this.setOn.bind(this));
-        this.switchService.getCharacteristic(Characteristic.Brightness)
-            //.on('get', this.getOn.bind(this))
-            .on('set', this.setOn.bind(this));
-    } 
-
+   
+    this.switchService = new Service.Switch(this.name);
+    this.switchService.getCharacteristic(Characteristic.On)
+        .on('get', this.getOn.bind(this))
+        .on('set', this.setOn.bind(this));
+    
     if (this.startOnReboot)
         this.switchService.setCharacteristic(Characteristic.On, true)
     
