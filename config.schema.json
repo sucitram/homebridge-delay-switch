@@ -13,17 +13,6 @@
                 "type": "string",
                 "required": true
             },
-            "type": {
-                "title": "Accessory type",
-                "description": "Switch / Dimmer (lightbulb)",
-                "type": "string",
-                "default": "switch",
-                "required": true,
-                "oneOf": [
-                    { "title": "switch", "enum": ["switch"] },
-                    { "title": "dimmer", "enum": ["dimmer"] }
-                ]
-                },
             "delay": {
                 "title": "Delay Time",
                 "description": "Delay to wait until the switch will be turned OFF. Each activation of the switch will reactivate timer (time will start to run again). 0 - timer disabled.",
@@ -97,7 +86,7 @@
         {
             "type": "flex",
             "flex-flow": "row wrap",
-            "items": ["type", "startOnReboot"]
+            "items": ["startOnReboot"]
         }
       ]
     },
