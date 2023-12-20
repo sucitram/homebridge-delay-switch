@@ -26,7 +26,6 @@ If you don't use Homebridge UI or HOOBS, keep reading:
         {
           "accessory": "DelaySwitch",
           "name": "DelaySwitch",
-          "type": "switch",
           "startOnReboot": false,
           "delay": 5,
           "delayUnit": "miliseconds",
@@ -41,7 +40,6 @@ If you don't use Homebridge UI or HOOBS, keep reading:
 | -------------------------------- | --------------------------- |:--------:|:--------:|:--------:|
 | `accessory`             | always `"DelaySwitch"`               |     ✓    |     -    |  String  |
 | `name`                  | Name for your accessory              |     ✓    |     -    |  String  |
-| `type`                  | Switch / Dimmer (lightbulb)          |     ✓    |  "switch"    |  String  |
 | `startOnReboot`         |  When set to `true`, the switch will be turned ON and start the timer when Homebridge restarts        |       |  `false` |  Boolean  |
 | `delay`                 |  Delay/Timer time. 0 - timer disabled |     ✓    |     0    |  Integer |
 | `delayUnit`             |  Delay unit: miliseconds / seconds / minutes / hours / days |     ✓    |     "miliseconds"    |  String |
@@ -64,7 +62,7 @@ Also it can be use with any device that requires a certain delay time after othe
 Basically, all you need to do is:
 
 1. Set the desired `delay` time in the config file. 0 - timer disabled.
-2. The plugin will create one switch (switch or dimmer) and optional sensor (motion/contact/occupancy).
+2. The plugin will create one switch and optional sensor (motion/contact/occupancy/leak).
 3. Use this switch in any scene or automation.
 4. Set an automation to trigger when this switch is turned OFF or the sensor is triggered, using the Home app or another app such as the Eve app.
 
@@ -79,6 +77,8 @@ If you have no use of the sensor you can remove it by setting `"sensorType": nul
 * **When manualy turning OFF the switch, the timer will stop and the sensor will NOT be triggered.**
 
 * **When the delay switch receives ON command while it's already ON, the timer will restart and the sensor trigger will be delayed.**
+
+* **You can easily change the type from switch to light in Apple Home (then you will be able to set the value from 0 to 100**
 
 _________________________________________
 
