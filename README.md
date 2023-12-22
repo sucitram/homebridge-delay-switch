@@ -1,10 +1,11 @@
-<img src="branding/delayswitch_homebridge.png" width="500px">
+<img alt="logo" src="branding/delayswitch_homebridge.png" width="500px">
 
 # Homebridge-Delay-Switch
 
 [![Downloads](https://img.shields.io/npm/dt/homebridge-delay-switch.svg?color=critical)](https://www.npmjs.com/package/homebridge-delay-switch)
-[![Version](https://img.shields.io/npm/v/homebridge-delay-switch)](https://www.npmjs.com/package/homebridge-delay-switch)<br>
-[![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins) [![Homebridge Discord](https://img.shields.io/discord/432663330281226270?color=728ED5&logo=discord&label=discord)](https://discord.gg/HWUKH9C)<br>
+[![Version](https://img.shields.io/npm/v/homebridge-delay-switch)](https://www.npmjs.com/package/homebridge-delay-switch)
+
+[![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins) [![Homebridge Discord](https://img.shields.io/discord/432663330281226270?color=728ED5&logo=discord&label=discord)](https://discord.gg/HWUKH9C)  
 [![certified-hoobs-plugin](https://badgen.net/badge/HOOBS/Certified/yellow)](https://plugins.hoobs.org?ref=10876) [![hoobs-support](https://badgen.net/badge/HOOBS/Support/yellow)](https://support.hoobs.org?ref=10876)
 
 With this plugin, you can create any number of fake switches that will start a timer when turned ON, when the delay time is reached the switch will automatically turn OFF and trigger a dedicated sensor (motion/contact/occupancy) for 3 seconds. This can be very useful for advanced automation with HomeKit scenes - when delayed actions are required.
@@ -15,11 +16,11 @@ This plugin is Homebridge verified and HOOBS certified and can be easily install
 
 If you don't use Homebridge UI or HOOBS, keep reading:
 
- * ```sudo npm install -g homebridge-delay-switch```
+* ```sudo npm install -g homebridge-delay-switch```
 * Create an accessory in your config.json file
 * Restart homebridge
 
-## Example config.json:
+## Example config.json
 
  ```
     "accessories": [
@@ -46,7 +47,6 @@ If you don't use Homebridge UI or HOOBS, keep reading:
 | `sensorType`            |  The sensor type that will trigger when the time has ended (`null` for no sensor)         |         | `motion` |  String |
 | `flipSensorState`       | Flips the trigger sensor state (close/open, detected/not detected)   |          |   `false`  |  Boolean |
 
-
 ## Why do we need this Plugin?
 
 The most common use of this plugin is to turn ON/OFF lights based on a motion/door sensor. This can be achieved by setting an automation to turn ON a light and the delay switch when motion is detected and turn OFF the light when the dedicated delay sensor is triggered (or delay switch is turned OFF).
@@ -55,7 +55,6 @@ Another great example, when using a smart wall switch (to turn ON) and RGB light
 To fix this, we can set an automation to change the bulb color a few seconds after the wall switch ON command.
 
 Also it can be use with any device that requires a certain delay time after other devices (TV + RPi-Kodi  /  PC + SSH / etc...)
-
 
 ## How it Works
 
@@ -85,6 +84,6 @@ _________________________________________
 **homebridge-delay-switch** is a free plugin under the MIT license. it was developed as a contribution to the homebridge/hoobs community with lots of love and thoughts.
 Creating and maintaining Homebridge plugins consume a lot of time and effort and if you would like to share your appreciation, feel free to "Star" or donate.
 
-<a target="blank" href="https://www.paypal.me/nitaybz"><img src="https://img.shields.io/badge/PayPal-Donate-blue.svg?logo=paypal"/></a><br>
-<a target="blank" href="https://www.patreon.com/nitaybz"><img src="https://img.shields.io/badge/PATREON-Become a patron-red.svg?logo=patreon"/></a><br>
-<a target="blank" href="https://ko-fi.com/nitaybz"><img src="https://img.shields.io/badge/Ko--Fi-Buy%20me%20a%20coffee-29abe0.svg?logo=ko-fi"/></a>
+[![PayPal](https://img.shields.io/badge/PayPal-Donate-blue.svg?logo=paypal)](https://www.paypal.me/nitaybz)  
+[![Patreon](https://img.shields.io/badge/PATREON-Become%20a%20Patreon-red.svg?logo=patreon)](https://www.patreon.com/nitaybz)  
+[![Ko-Fi](https://img.shields.io/badge/Ko--Fi-Buy%20me%20a%20coffee-29abe0.svg?logo=ko-fi)](https://ko-fi.com/nitaybz)
