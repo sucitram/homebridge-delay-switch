@@ -21,7 +21,6 @@ function delaySwitch(log, config, api) {
     this.flipSensor = config['flipSensorState'];
     this.disableSensor = config['disableSensor'] || !config['sensorType'] || this.delay === 0;
     this.startOnReboot = config['startOnReboot'] || false;
-    this.timer;
     this.switchOn = false;
     this.sensorTriggered = 0;
     this.uuid = UUIDGen.generate(this.name)
