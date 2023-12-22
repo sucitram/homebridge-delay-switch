@@ -81,10 +81,8 @@ delaySwitch.prototype.getServices = function () {
     this.switchService = new Service.Switch(this.name);
     this.switchService.getCharacteristic(Characteristic.On)
         .on('get', this.getOn.bind(this))
-        .on('set', this.setOn.bind(this));
-
-    if (this.startOnReboot)
-        this.switchService.setCharacteristic(Characteristic.On, true)
+        .on('set', this.setOn.bind(this))
+        .updateValue(this.startOnReboot)
 
     var services = [informationService, this.switchService]
 
