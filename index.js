@@ -29,19 +29,19 @@ function delaySwitch(log, config, api) {
 
     switch (this.delayUnit) {
         case 's':
-            this.delay = this.delay * 1000;
+            this.delayTime = this.delay * 1000;
             break;
         case 'm':
-            this.delay = this.delay * 60 * 1000;
+            this.delayTime = this.delay * 60 * 1000;
             break;
         case 'h':
-            this.delay = this.delay * 60 * 60 * 1000;
+            this.delayTime = this.delay * 60 * 60 * 1000;
             break;
         case 'd':
-            this.delay = this.delay * 24 * 60 * 60 * 1000;
+            this.delayTime = this.delay * 24 * 60 * 60 * 1000;
             break;
         default:
-            this.delay = this.delay;
+            this.delayTime = this.delay;
             break;
     }
 
@@ -150,7 +150,7 @@ delaySwitch.prototype.setOn = function (value, callback) {
                     }.bind(this), 3000);
                 }
 
-            }.bind(this), this.delay);
+            }.bind(this), this.delayTime);
         }
     }
     callback();
