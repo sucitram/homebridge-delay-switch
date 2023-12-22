@@ -15,30 +15,30 @@
             },
             "delay": {
                 "title": "Delay Time",
-                "description": "Delay to wait until the switch will be turned OFF. Each activation of the switch will reactivate timer (time will start to run again). 0 - timer disabled.",
+                "description": "Delay to wait until the switch will be turned OFF. Each activation of the switch will reactivate timer (time will restart). 0 - Timer and sensor are disabled.",
                 "type": "integer",
                 "default": 5000,
                 "required": true
             },
             "delayUnit": {
-            "title": "Delay unit",
-            "description": "Delay unit: miliseconds, seconds, minutes, hour, days.",
+            "title": "Delay Time Unit",
+            "description": "Delay Time Unit (milliseconds/seconds/minutes/hours/days).",
             "type": "string",
-            "default": "miliseconds",
+            "default": "ms",
             "required": true,
             "oneOf": [
-                { "title": "miliseconds", "enum": ["miliseconds"] },
-                { "title": "seconds", "enum": ["seconds"] },
-                { "title": "minutes", "enum": ["minutes"] },
-                { "title": "hours", "enum": ["hours"] },
-                { "title": "days", "enum": ["days"] }
+                { "title": "milliseconds", "enum": ["ms"] },
+                { "title": "seconds", "enum": ["s"] },
+                { "title": "minutes", "enum": ["m"] },
+                { "title": "hours", "enum": ["h"] },
+                { "title": "days", "enum": ["d"] }
             ]
             },
             "sensorType": {
                 "title": "Trigger Sensor Type",
-                "description": "Add an optional sensor that will be activated when the timer comes to an end.",
+                "description": "Adds an optional sensor that will be activated when the timer comes to an end.",
                 "type": "string",
-                "default": "",
+                "default": "motion",
                 "required": false,
                 "oneOf": [
                   { "title": "Motion Sensor", "enum": ["motion"] },
@@ -106,7 +106,7 @@
     },
     {
       "type": "fieldset",
-      "title": "Additional Sensor",
+      "title": "Trigger Sensor",
       "description": "",
       "expandable": true,
       "expanded": false,

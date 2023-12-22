@@ -28,7 +28,7 @@ If you don't use Homebridge UI or HOOBS, keep reading:
           "name": "DelaySwitch",
           "startOnReboot": false,
           "delay": 5,
-          "delayUnit": "miliseconds",
+          "delayUnit": "ms",
           "sensorType": "motion",
           "flipSensorState": false
         }   
@@ -42,8 +42,8 @@ If you don't use Homebridge UI or HOOBS, keep reading:
 | `name`                  | Name for your accessory              |     ✓    |     -    |  String  |
 | `startOnReboot`         |  When set to `true`, the switch will be turned ON and start the timer when Homebridge restarts        |       |  `false` |  Boolean  |
 | `delay`                 |  Delay/Timer time. 0 - timer disabled |     ✓    |     0    |  Integer |
-| `delayUnit`             |  Delay unit: miliseconds / seconds / minutes / hours / days |     ✓    |     "miliseconds"    |  String |
-| `sensorType`            |  The sensor type that will trigger when the time has ended (`null` for no sensor)         |         | `null` |  String |
+| `delayUnit`             |  Delay Time Unit: ms / s / m / h / d |     ✓    |     "ms"    |  String |
+| `sensorType`            |  The sensor type that will trigger when the time has ended (`null` for no sensor)         |         | `motion` |  String |
 | `flipSensorState`       | Flips the trigger sensor state (close/open, detected/not detected)   |          |   `false`  |  Boolean |
 
 
@@ -74,7 +74,7 @@ If you have no use of the sensor you can remove it by setting `"sensorType": nul
 
 ## Good to Know
 
-* **When manualy turning OFF the switch, the timer will stop and the sensor will NOT be triggered.**
+* **When manually turning OFF the switch, the timer will stop and the sensor will NOT be triggered.**
 
 * **When the delay switch receives ON command while it's already ON, the timer will restart and the sensor trigger will be delayed.**
 
