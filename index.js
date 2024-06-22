@@ -18,8 +18,10 @@ function delaySwitch(log, config, api) {
 	this.sensorType = config['sensorType']
 	if (typeof this.sensorType === 'undefined')
 		this.sensorType = 'motion'
+	if(this.sensorType == 'none')
+		this.sensorType = 'motion' // map none to motion, but disable the sensor	
 	this.flipSensor = config['flipSensorState']
-	this.disableSensor = config['disableSensor'] || !config['sensorType'] || this.delay === 0
+	this.disableSensor = config['disableSensor'] || !config['sensorType'] || config['sensorType'] == 'none' || this.delay === 0
 	this.startOnReboot = config['startOnReboot'] || false
 	this.switchOn = false
 	this.sensorTriggered = 0
@@ -83,6 +85,9 @@ delaySwitch.prototype.getServices = function () {
 		.on('set', this.setOn.bind(this))
 		.updateValue(this.startOnReboot)
 
+	if (this.startOnReboot)
+		this.switchService.setCharacteristic(Characteristic.On, true)
+
 	var services = [informationService, this.switchService]
 
 	if (!this.disableSensor) {
@@ -136,6 +141,7 @@ delaySwitch.prototype.setOn = function (value, callback) {
 				this.log.easyDebug('Time is Up!')
 				this.switchService.getCharacteristic(Characteristic.On).updateValue(false)
 				this.switchOn = false
+				this.switchService.setCharacteristic(Characteristic.On, false)
 
 				if (!this.disableSensor) {
 					this.sensorTriggered = 1

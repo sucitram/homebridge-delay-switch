@@ -38,9 +38,10 @@
                 "title": "Trigger Sensor Type",
                 "description": "Adds an optional sensor that will be activated when the timer comes to an end.",
                 "type": "string",
-                "default": "motion",
-                "required": false,
+                "default": "none",
+                "required": true,
                 "oneOf": [
+                  { "title": "None", "enum": ["none"] },
                   { "title": "Motion Sensor", "enum": ["motion"] },
                   { "title": "Contact Sensor", "enum": ["contact"] },
                   { "title": "Occupancy Sensor", "enum": ["occupancy"] },
